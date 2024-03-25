@@ -55,6 +55,64 @@ class ZoteroApi
     ];
 
     /**
+     * The defined CSL locales
+     */
+    const CSL_LOCALES = [
+        "bg-BG",
+        "ca-AD",
+        "cs-CZ",
+        "cy-GB",
+        "da-DK",
+        "de-AT",
+        "de-CH",
+        "de-DE",
+        "el-GR",
+        "en-GB",
+        "en-US",
+        "es-CL",
+        "es-ES",
+        "es-MX",
+        "et-EE",
+        "fa-IR",
+        "fi-FI",
+        "fr-CA",
+        "fr-FR",
+        "gl-ES",
+        "he-IL",
+        "hi-IN",
+        "hr-HR",
+        "hu-HU",
+        "id-ID",
+        "is-IS",
+        "it-IT",
+        "ja-JP",
+        "km-KH",
+        "ko-KR",
+        "lt-LT",
+        "lv-LV",
+        "mn-MN",
+        "nb-NO",
+        "nl-NL",
+        "nn-NO",
+        "pa-PK",
+        "pl-PL",
+        "pt-BR",
+        "pt-PT",
+        "ro-RO",
+        "ru-RU",
+        "sk-SK",
+        "sl-SI",
+        "sr-RS",
+        "sv-SE",
+        "th-TH",
+        "tr-TR",
+        "uk-UA",
+        "vi-VN",
+        "zh-CN",
+        "zh-TW"
+    ];
+
+    /**
      * The api version.
      *
      * @var int
@@ -112,6 +170,11 @@ class ZoteroApi
      * @var string
      */
     private $include = '';
+
+    /**
+     * @var string
+     */
+    private $locale = 'en-US';
 
     /**
      * @var Response
@@ -311,6 +374,37 @@ class ZoteroApi
 
         $this->addQueryString($this->path, ['include' => $include]);
         $this->include = $include;
+
+        return $this;
+    }
+
+    /**
+     * Get the requested locale.
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set the requested locale.
+     *
+     * @param string $locale
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        if ( !in_array($locale, self::CSL_LOCALES) ) {
+            throw new InvalidParameterException(
+                'Locale parameter has to be one of ' .
+                implode(',', self::CSL_LOCALES) . '.'
+            );
+        }
+
+        $this->addQueryString($this->path, ['locale' => $locale]);
+        $this->locale = $locale;
 
         return $this;
     }
