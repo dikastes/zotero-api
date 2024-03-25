@@ -161,6 +161,11 @@ class ZoteroApi
     private $include = '';
 
     /**
+     * @var string
+     */
+    private $locale = 'en-US';
+
+    /**
      * @var Response
      */
     private $response;
