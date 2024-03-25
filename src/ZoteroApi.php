@@ -15,6 +15,17 @@ class ZoteroApi
     const API_BASE_URL = 'https://api.zotero.org/';
 
     /**
+     * The possible format parameter values.
+     */
+    const FORMAT_VALUES = [
+        'atom',
+        'bib',
+        'json',
+        'keys',
+        'versions'
+    ];
+
+    /**
      * The possible include parameter values.
      */
     const INCLUDE_VALUES = [
@@ -252,6 +263,18 @@ class ZoteroApi
      */
     public function setFormat($format)
     {
+        if (
+            !in_array($format, self::FORMAT_VALUES) &&
+            !in_array($format, self::EXPORT_FORMATS)
+        ) {
+            throw new InvalidParameterException(
+                'Include parameter has to be one of ' .
+                implode(',', self::INCLUDE_VALUES) .
+                ' or a valid export format.'
+            );
+        }
+        $this->addQueryString($this->path, ['format' => $format]);
+
         $this->format = $format;
 
         return $this;
