@@ -392,6 +392,20 @@ class ZoteroApiTest extends TestCase
         );
     }
 
+    public function testLocale()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setLocale('de-DE');
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?locale=de-DE',
+            $this->api->getPath()
+        );
+    }
+
     public function testDirection()
     {
         $result = $this->api
