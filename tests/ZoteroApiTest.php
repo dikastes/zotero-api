@@ -378,6 +378,20 @@ class ZoteroApiTest extends TestCase
         );
     }
 
+    public function testFormat()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setFormat('biblatex');
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?format=biblatex',
+            $this->api->getPath()
+        );
+    }
+
     public function testInclude()
     {
         $result = $this->api
