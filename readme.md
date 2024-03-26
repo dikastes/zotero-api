@@ -37,6 +37,7 @@ A php wrapper for zotero web api.
     - [Direction](#direction)
     - [Limit](#limit)
     - [Start](#start)
+  - [Export formats](#export-formats)
   - [Request timeout](#request-timeout)
   - [Connection timeout](#connection-timeout)
   - [**Sending a request and getting a response**](#sending-a-request-and-getting-a-response)
@@ -373,6 +374,32 @@ $api->user($userId)
     ->items()
     ->start(60)
     ->limit(70)
+    // continue chaining methods...
+```
+
+### Export formats
+
+The `setFormat($format)` method selects an export format.
+The `$format` parameter has to be one of `atom`, `bib`, `json`, `keys`, `versions`, or a default export format.
+
+When using the default (JSON), all data may be appended in an export format via `setInclude($format)`.
+When using `bib` or `citation` as format or include parameter, `style`, `linkWrap` and `locale` may also be selected.
+
+```php
+// set the export format to TEI
+$api->user($userId)
+    ->items()
+    ->setFormat('tei')
+    // continue chaining methods...
+
+// specify citation data in German with wrapped links
+// and select a bibliography style
+$api->user($userId)
+    ->items()
+    ->setInclude('citation')
+    ->setLocale('de-DE')
+    ->setLinkWrap()
+    ->setStyle('chicago-fullnote-bibliography-16th-edition')   
     // continue chaining methods...
 ```
 
