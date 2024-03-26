@@ -411,11 +411,42 @@ class ZoteroApiTest extends TestCase
         $result = $this->api
            ->user(12345)
            ->items()
+           ->setFormat('bib')
            ->setLocale('de-DE');
 
         $this->assertInstanceOf(ZoteroApi::class, $result);
         $this->assertEquals(
-            'users/12345/items?locale=de-DE',
+            'users/12345/items?format=bib&locale=de-DE',
+            $this->api->getPath()
+        );
+    }
+
+    public function testStyle()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setFormat('bib')
+           ->setStyle('chicago-fullnote-bibliography-16th-edition');
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?format=bib&style=chicago-fullnote-bibliography-16th-edition',
+            $this->api->getPath()
+        );
+    }
+
+    public function testLinkWrap()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setFormat('bib')
+           ->setLinkWrap();
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?format=bib&linkwrap=1',
             $this->api->getPath()
         );
     }

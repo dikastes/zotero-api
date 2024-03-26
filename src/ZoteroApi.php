@@ -177,6 +177,16 @@ class ZoteroApi
     private $locale = 'en-US';
 
     /**
+     * @var string
+     */
+    private $style = 'chicago-note-bibliography';
+
+    /**
+     * @var string
+     */
+    private $linkWrap = false;
+
+    /**
      * @var Response
      */
     private $response;
@@ -405,6 +415,56 @@ class ZoteroApi
 
         $this->addQueryString($this->path, ['locale' => $locale]);
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get the requested linkWrap toggle.
+     *
+     * @return bool
+     */
+    public function getLinkWrap()
+    {
+        return $this->linkWrap;
+    }
+
+    /**
+     * Set the requested linkWrap toggle.
+     *
+     * @param bool $linkWrap
+     * @return $this
+     */
+    public function setLinkWrap($linkWrap = true)
+    {
+        $intValue = $linkWrap ? 1 : 0;
+
+        $this->addQueryString($this->path, ['linkwrap' => $intValue]);
+        $this->linkWrap = $linkWrap;
+
+        return $this;
+    }
+
+    /**
+     * Get the requested style.
+     *
+     * @return string
+     */
+    public function getStyle()
+    {
+        return $this->style;
+    }
+
+    /**
+     * Set the requested style.
+     *
+     * @param string $style
+     * @return $this
+     */
+    public function setStyle($style)
+    {
+        $this->addQueryString($this->path, ['style' => $style]);
+        $this->style = $style;
 
         return $this;
     }
