@@ -341,7 +341,7 @@ class ZoteroApi
             !in_array($format, self::EXPORT_FORMATS)
         ) {
             throw new InvalidParameterException(
-                'Include parameter has to be one of ' .
+                'Format parameter has to be one of ' .
                 implode(',', self::INCLUDE_VALUES) .
                 ' or a valid export format.'
             );
@@ -371,15 +371,18 @@ class ZoteroApi
      */
     public function setInclude($include)
     {
-        if (
-            !in_array($include, self::INCLUDE_VALUES) &&
-            !in_array($include, self::EXPORT_FORMATS)
-        ) {
-            throw new InvalidParameterException(
-                'Include parameter has to be one of ' .
-                implode(',', self::INCLUDE_VALUES) .
-                ' or a valid export format.'
-            );
+        $includeList = explode(',', $include);
+        foreach($includeList as $includeValue) {
+            if (
+                !in_array($includeValue, self::INCLUDE_VALUES) &&
+                !in_array($includeValue, self::EXPORT_FORMATS)
+            ) {
+                throw new InvalidParameterException(
+                    'Include parameter has to be one of ' .
+                    implode(',', self::INCLUDE_VALUES) .
+                    ' or a valid export format.'
+                );
+            }
         }
 
         $this->addQueryString($this->path, ['include' => $include]);
