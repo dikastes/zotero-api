@@ -406,6 +406,20 @@ class ZoteroApiTest extends TestCase
         );
     }
 
+    public function testMultipleIncludes()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setInclude('tei,bib');
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?include=tei,bib',
+            $this->api->getPath()
+        );
+    }
+
     public function testLocale()
     {
         $result = $this->api
