@@ -120,6 +120,13 @@ class ZoteroApi
     private $version = 3;
 
     /**
+ *   * The since parameter.
+     *
+     * @var int
+     */
+    private $since = 0;
+
+    /**
      * The user API key.
      *
      * @var string
@@ -222,6 +229,31 @@ class ZoteroApi
     public function setVersion($version)
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get the since parameter.
+     *
+     * @return int
+     */
+    public function getSince()
+    {
+        return $this->since;
+    }
+
+    /**
+     * Set the since parameter.
+     *
+     * @param int $since
+     * @return $this
+     */
+    public function setSince($since = 0)
+    {
+        $this->addQueryString($this->path, ['since' => $since]);
+
+        $this->since = $since;
 
         return $this;
     }
