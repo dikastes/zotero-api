@@ -392,6 +392,34 @@ class ZoteroApiTest extends TestCase
         );
     }
 
+    public function testSince()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setSince(1234567890);
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?since=1234567890',
+            $this->api->getPath()
+        );
+    }
+
+    public function testEmptySince()
+    {
+        $result = $this->api
+           ->user(12345)
+           ->items()
+           ->setSince();
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'users/12345/items?since=0',
+            $this->api->getPath()
+        );
+    }
+
     public function testInclude()
     {
         $result = $this->api
