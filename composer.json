@@ -14,7 +14,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^10"
     },
     "homepage": "https://github.com/hedii/zotero-api",
     "support": {
