@@ -168,6 +168,33 @@ class ZoteroApiTest extends TestCase
         );
     }
 
+    public function testDeleted()
+    {
+        $result = $this->api
+            ->group($this->groupId)
+            ->deleted();
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'groups/' . $this->groupId . '/deleted',
+            $this->api->getPath()
+        );
+    }
+
+    public function testDeletedAfterCollections()
+    {
+        $result = $this->api
+            ->group($this->groupId)
+            ->collections(12345)
+            ->deleted();
+
+        $this->assertInstanceOf(ZoteroApi::class, $result);
+        $this->assertEquals(
+            'groups/' . $this->groupId . '/collections/12345/deleted',
+            $this->api->getPath()
+        );
+    }
+
     public function testTopAfterItems()
     {
         $result = $this->api

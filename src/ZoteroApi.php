@@ -679,6 +679,28 @@ class ZoteroApi
     }
 
     /**
+     * Build the path to get the deleted items in the library.
+     *
+     * @return $this
+     * @throws \Hedii\ZoteroApi\Exceptions\BadMethodCallException
+     */
+    public function deleted()
+    {
+        $this->setPath($this->path . '/deleted');
+
+        if (
+            ! $this->contains($this->path, 'users/') &&
+            ! $this->contains($this->path, 'groups/')
+        ) {
+            throw new BadMethodCallException(
+                'Method deleted() has to be called after method user($userId), method group($groupId) or method collections($key)'
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * Build the path to get the set of all top-level items in the library.
      *
      * @return $this
